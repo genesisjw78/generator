@@ -1,7 +1,7 @@
 {
 	"name": "svm-generator",
 	"description": "SVM' application generator",
-	"version": "1.0.0",
+	"version": "1.0.5",
 	"author": "jaewoo.choi <jaewoo.choi@insertcoin.me>",
 	"contributors": [],
 	"keywords": [
@@ -22,7 +22,7 @@
 	"main": "bin/svm-cli.js",
 	"preferGlobal": true,
 	"bin": {
-		"express": "./bin/svm-cli.js"
+		"svm-cli": "./bin/svm-cli.js"
 	},
 	"devDependencies": {
 		"eslint": "4.18.2",

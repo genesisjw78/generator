@@ -1,0 +1,53 @@
+{
+	"app": {
+		"env": "default",
+		"name": "PUFF",
+		"version": "v1"
+	},
+	"http": {
+		"enable": true,
+		"port": 8080
+	},
+	"https": {
+		"enable": false,
+		"cert": "",
+		"key": "",
+		"port": 9047,
+		"passphrase": ""
+	},
+	"tokenExpire": 1814400,
+	"talkExpire": 1209600000,
+	"adminTokenExpire": 10800,
+	"s3": {
+		"enable": false,
+		"accessKeyId": "",
+		"secretAccessKey": "",
+		"region": "",
+		"bucket": ""
+	},
+	"azure": {
+		"enable": false,
+		"storageAccountId": "",
+		"storageAccessKey": "",
+		"containerName": ""
+	},
+	"database": {
+		"host": "",
+		"dbname": ["1", "2"],
+		"user": "",
+		"password": "",
+		"protocol": "mysql",
+		"port": "3306",
+		"query": {
+			"debug": "!is_prod"
+		}
+	},
+	"redis": {
+		"port": 6379,
+		"host": "localhost"
+	},
+	"iamport": {
+		"api_key": "",
+		"api_secret": ""
+	}
+}
