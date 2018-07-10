@@ -1,6 +1,6 @@
 {
 	"app": {
-		"env": "default",
+		"env": "production",
 		"name": "PUFF",
 		"version": "v1"
 	},

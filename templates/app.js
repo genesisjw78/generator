@@ -1,6 +1,3 @@
-const http = require('http').Server;
-const path = require('path');
-
 const express = require('express');
 
 // 환경세팅
@@ -12,13 +9,12 @@ const route = require('./config/routes');
 // 1. Run server
 (() => {
 	const app = express();
-	const server = http(app);
 
 	environment(app);
 	route(app);
 
 	if (config.http.enable) {
-		httpServ = app.listen(app.get('port'), function () {
+		httpServ = app.listen(global.config.http.port, function () {
 			console.log('[%s] (http) listening on port [%s]', global.config.app.name, httpServ.address().port);
 			console.log('---------------------------------------------------------------');
 		});
@@ -30,7 +26,7 @@ const route = require('./config/routes');
 			cert: fs.readFileSync(config.https.cert),
 			passphrase: config.https.passphrase
 		}, app);
-		httpsServ.listen(config.https.port, function () {
+		httpsServ.listen(global.config.https.port, function () {
 			console.log('[%s] (https) listening on port [%s]', global.config.app.name, httpsServ.address().port);
 			console.log('---------------------------------------------------------------');
 		});

@@ -6,7 +6,7 @@ const bearerToken = require('express-bearer-token');
 const cors = require('cors');
 
 // 환경번수 세팅
-process.env.NODE_ENV = (process.env.NODE_ENV && (process.env.NODE_ENV).trim().toLowerCase() == 'production') ? 'production' : 'development';
+process.env.NODE_ENV = (!!process.env.NODE_ENV) ? process.env.NODE_ENV : 'development';
 
 global.config = require('config');
 
