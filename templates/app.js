@@ -13,18 +13,18 @@ const route = require('./config/routes');
 	environment(app);
 	route(app);
 
-	if (config.http.enable) {
+	if (global.config.http.enable) {
 		httpServ = app.listen(global.config.http.port, function () {
 			console.log('[%s] (http) listening on port [%s]', global.config.app.name, httpServ.address().port);
 			console.log('---------------------------------------------------------------');
 		});
 	}
 
-	if (config.https.enable) {
+	if (global.config.https.enable) {
 		httpsServ = https.createServer({
-			key: fs.readFileSync(config.https.key),
-			cert: fs.readFileSync(config.https.cert),
-			passphrase: config.https.passphrase
+			key: fs.readFileSync(global.config.https.key),
+			cert: fs.readFileSync(global.config.https.cert),
+			passphrase: global.config.https.passphrase
 		}, app);
 		httpsServ.listen(global.config.https.port, function () {
 			console.log('[%s] (https) listening on port [%s]', global.config.app.name, httpsServ.address().port);

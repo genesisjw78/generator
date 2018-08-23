@@ -11,27 +11,27 @@ process.env.NODE_ENV = (!!process.env.NODE_ENV) ? process.env.NODE_ENV : 'develo
 global.config = require('config');
 
 module.exports = (app) => {
-	app.use(bodyParser.json());
+  app.use(bodyParser.json());
 
-	app.use(bodyParser.urlencoded({
-		extended: true
-	}));
+  app.use(bodyParser.urlencoded({
+    extended: true
+  }));
 
-	// CORS 설정
-	app.use(cors());
+  // CORS 설정
+  app.use(cors());
 
-	app.use(cookieParser());
-	app.use(compression());
-	app.use(bearerToken());
+  app.use(cookieParser());
+  app.use(compression());
+  app.use(bearerToken());
 
-	app.set('view engine', 'ejs');
-	app.set('views', path.join(__dirname, '/../app/views'));
-	app.set('trust proxy', true);
+  app.set('view engine', 'ejs');
+  app.set('views', path.join(__dirname, '/../app/views'));
+  app.set('trust proxy', true);
 
-	app.disable('etag');
-	app.disable('x-powered-by');
+  app.disable('etag');
+  app.disable('x-powered-by');
 
-	console.log('---------------------------------------------------------------');
-	console.log('[%s] running by [%s]', global.config.app.name, global.config.app.env);
-	console.log('\r');
+  console.log('---------------------------------------------------------------');
+  console.log('[%s] running by [%s]', global.config.app.name, process.env.NODE_ENV);
+  console.log('\r');
 };
