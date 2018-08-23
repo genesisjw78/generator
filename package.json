@@ -1,7 +1,7 @@
 {
   "name": "svm-generator",
   "description": "SVM' application generator",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "author": "jaewoo.choi <jaewoo.choi@insertcoin.me>",
   "contributors": [],
   "keywords": [
