@@ -16,11 +16,11 @@ var version = pkg.version;
 
 // Re-assign process.exit because of commander
 // TODO: Switch to a different command framework
-process.exit = exit
+process.exit = exit;
 
 // CLI
 
-before(program, 'outputHelp', function () {
+before(program, 'outputHelp', function() {
 	this.allowUnknownOption();
 });
 
@@ -42,7 +42,7 @@ if (!exit.exited) {
 function before(obj, method, fn) {
 	var old = obj[method];
 
-	obj[method] = function () {
+	obj[method] = function() {
 		fn.call(this);
 		old.apply(this, arguments);
 	};
@@ -55,10 +55,10 @@ function before(obj, method, fn) {
 function confirm(msg, callback) {
 	var rl = readline.createInterface({
 		input: process.stdin,
-		output: process.stdout
+		output: process.stdout,
 	});
 
-	rl.question(msg, function (input) {
+	rl.question(msg, function(input) {
 		rl.close();
 		callback(/^y|yes|ok|true$/i.test(input));
 	});
@@ -111,24 +111,24 @@ function createApplication(app_name, path) {
 	var config_routes = loadTemplate('config/routes.js');
 
 	var root_readme = loadTemplate('README.md');
+	var root_ecosystem = loadTemplate('ecosystem.config.js');
 
-	mkdir(path, function () {
-
+	mkdir(path, function() {
 		//app
-		mkdir(path + '/app', function () {
-			mkdir(path + '/app/controllers', function () {
+		mkdir(path + '/app', function() {
+			mkdir(path + '/app/controllers', function() {
 				write(path + '/app/controllers/index.js', controllers_index);
 				write(path + '/app/controllers/user.js', controllers_user);
 				complete();
 			});
-			mkdir(path + '/app/models', function () {
+			mkdir(path + '/app/models', function() {
 				write(path + '/app/models/index.js', models_index);
 				write(path + '/app/models/users.js', models_user);
 				complete();
 			});
 		});
 
-		mkdir(path + '/config', function () {
+		mkdir(path + '/config', function() {
 			write(path + '/config/default.json', config_default);
 			write(path + '/config/development.json', config_development);
 			write(path + '/config/production.json', config_production);
@@ -145,30 +145,29 @@ function createApplication(app_name, path) {
 			version: '0.0.0',
 			private: true,
 			scripts: {
-				"start": "node ./app.js",
-				"debug": "node --inspect-brk=9229 app.js"
+				start: 'node ./app.js',
+				debug: 'node --inspect-brk=9229 app.js',
 			},
 			dependencies: {
-				"async": "^2.6.1",
-				"body-parser": "~1.18.3",
-				"compression": "^1.7.2",
-				"config": "^1.30.0",
-				"cookie-parser": "~1.4.3",
-				"cors": "^2.8.4",
-				"debug": "~2.6.9",
-				"express": "~4.16.0",
-				"express-bearer-token": "^2.1.1",
-				"http-errors": "~1.6.2",
-				"lodash": "^4.17.10",
-				"morgan": "~1.9.0",
-				"mysql2": "^1.5.3",
-				"response-format": "^1.0.4",
-				"sequelize": "^4.37.10",
-				"uuid-random": "^1.0.6",
-				"validator": "^10.3.0"
-			}
-		}
-
+				async: '^2.6.1',
+				'body-parser': '~1.18.3',
+				compression: '^1.7.2',
+				config: '^1.30.0',
+				'cookie-parser': '~1.4.3',
+				cors: '^2.8.4',
+				debug: '~2.6.9',
+				express: '~4.16.0',
+				'express-bearer-token': '^2.1.1',
+				'http-errors': '~1.6.2',
+				lodash: '^4.17.10',
+				morgan: '~1.9.0',
+				mysql2: '^1.5.3',
+				'response-format': '^1.0.4',
+				sequelize: '^4.37.10',
+				'uuid-random': '^1.0.6',
+				validator: '^10.3.0',
+			},
+		};
 
 		// sort dependencies like npm(1)
 		pkg.dependencies = sortedObject(pkg.dependencies);
@@ -177,8 +176,9 @@ function createApplication(app_name, path) {
 		write(path + '/package.json', JSON.stringify(pkg, null, 2));
 		write(path + '/app.js', app);
 		write(path + '/README.md', root_readme);
+		write(path + '/ecosystem.config.js', root_ecosystem);
 
-		mkdir(path + '/bin', function () {
+		mkdir(path + '/bin', function() {
 			//			www = www.replace('{name}', app_name);
 			//			write(path + '/bin/www', www, 0755);
 			complete();
@@ -203,7 +203,7 @@ function copy_template(from, to) {
  */
 
 function emptyDirectory(path, fn) {
-	fs.readdir(path, function (err, files) {
+	fs.readdir(path, function(err, files) {
 		if (err && 'ENOENT' != err.code) throw err;
 		fn(!files || !files.length);
 	});
@@ -218,7 +218,7 @@ function exit(code) {
 	// https://github.com/joyent/node/issues/6247 is just one bug example
 	// https://github.com/visionmedia/mocha/issues/333 has a good discussion
 	function done() {
-		if (!(draining--)) _exit(code);
+		if (!draining--) _exit(code);
 	}
 
 	var draining = 0;
@@ -226,7 +226,7 @@ function exit(code) {
 
 	exit.exited = true;
 
-	streams.forEach(function (stream) {
+	streams.forEach(function(stream) {
 		// submit empty write request and wait for completion
 		draining += 1;
 		stream.write('', done);
@@ -240,8 +240,7 @@ function exit(code) {
  */
 
 function launchedFromCmd() {
-	return process.platform === 'win32' &&
-		process.env._ === undefined;
+	return process.platform === 'win32' && process.env._ === undefined;
 }
 
 /**
@@ -270,11 +269,11 @@ function main() {
 	if (program.hbs) program.template = 'hbs';
 
 	// Generate application
-	emptyDirectory(destinationPath, function (empty) {
+	emptyDirectory(destinationPath, function(empty) {
 		if (empty || program.force) {
 			createApplication(appName, destinationPath);
 		} else {
-			confirm('destination is not empty, continue? [y/N] ', function (ok) {
+			confirm('destination is not empty, continue? [y/N] ', function(ok) {
 				if (ok) {
 					process.stdin.destroy();
 					createApplication(appName, destinationPath);
@@ -296,7 +295,7 @@ function main() {
 
 function write(path, str, mode) {
 	fs.writeFileSync(path, str, {
-		mode: mode || 0666
+		mode: mode || 0666,
 	});
 	console.log('   \x1b[36mcreate\x1b[0m : ' + path);
 }
@@ -309,7 +308,7 @@ function write(path, str, mode) {
  */
 
 function mkdir(path, fn) {
-	mkdirp(path, 0755, function (err) {
+	mkdirp(path, 0755, function(err) {
 		if (err) throw err;
 		console.log('   \033[36mcreate\033[0m : ' + path);
 		fn && fn();
